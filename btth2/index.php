@@ -39,8 +39,18 @@ try {
         default:
             $controller = new HomeController($db);
             $controller->index(); // Gọi trang chủ
+            if ($url[0] === 'home') {
+                $controller = new HomeController($db); // Truyền $db vào controller
+                $controller->index();
+            } else {
+                echo "404 Not Found";
+            }
     }
 } catch (Exception $e) {
     // Hiển thị lỗi
     echo "Lỗi: " . $e->getMessage();
+}
+if (!$db) {
+    echo "Không thể kết nối cơ sở dữ liệu. Hãy kiểm tra database.php và cơ sở dữ liệu.";
+    exit;
 }
